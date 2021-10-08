@@ -14,5 +14,24 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+
+  web:
+    build: .
+    restart: always
+    volumes:
+      - .:/telemed
+      - /usr/share/nginx/html/static:/telemed/staticfiles
+      - /usr/share/nginx/html/mediafiles:/telemed/mediafiles
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    ports:
+      - 8000:8000 # Django
+    env_file:
+      - envs/.env
+    depends_on:
+      - db
+
 volumes:
   pgdata:
