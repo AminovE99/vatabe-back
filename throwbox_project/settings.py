@@ -20,9 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'rest_framework_swagger',
-    'rest_framework.authtoken',
     'corsheaders',
-    'rest_auth',
     'psycopg2',
     'drf_yasg',
     'throwbox_app'
@@ -34,21 +32,12 @@ AUTH_USER_MODEL = 'throwbox_app.User'
 
 APPEND_SLASH = False
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=600)
-}
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ],
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication'
-    ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
@@ -60,24 +49,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'throwbox_app.serializers.CustomRegisterSerializer',
 }
 
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'throwbox_app.serializers.CustomUserDetailSerializer',
-    'LOGIN_SERIALIZER': 'throwbox_app.serializers.LoginSerializer'
-}
 
-SWAGGER_SETTINGS = {
-    'PERSIST_AUTH': True,
-    'SECURITY_DEFINITIONS': {
-        'Basic': {
-            'type': 'basic'
-        },
-        'Bearer': {
-            'type': 'apiKey',
-            'name': 'Authorization',
-            'in': 'header'
-        }
-    }
-}
 LOGIN_URL = '/admin/'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,7 +99,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', 'dunice_db'),
         'USER': os.getenv('DB_USER', 'dunice_user'),
         'PASSWORD': os.getenv('DB_PASSWORD', 'dunice_password'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'HOST': os.getenv('DB_HOST', '89.223.71.27'),
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
