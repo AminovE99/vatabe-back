@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   db:
-    container_name: db
+    container_name: db_2
     image: postgres
     restart: always
     environment:
