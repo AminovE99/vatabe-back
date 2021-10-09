@@ -57,13 +57,15 @@ class CardViewSet(APIView):
         user.save()
         question = user.questions.order_by('order').first()
         event = user.events.order_by('order').first()
-        if question.order < event.order:
+        if event and question and question.order < event.order:
             user.questions.remove(question)
             return Response({'type': 'question', 'object': QuestionSerializer(question).data,
                              'user': RetrieveUserSerializer(user).data},
                             status=status.HTTP_200_OK)
-        else:
+        elif event and question and question.order > event.order:
             user.events.remove(event)
             return Response({'type': 'event', 'object': EventSerializer(event).data,
                              'user': RetrieveUserSerializer(user).data},
                             status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_204_NO_CONTENT)
