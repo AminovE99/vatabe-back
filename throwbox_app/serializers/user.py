@@ -17,10 +17,20 @@ class CreateResponseSerializer(serializers.ModelSerializer):
         model = User
         fields = ('pk', 'username', 'role', 'inflation_koeff', 'days_before_payday')
 
+
 class RetrieveUserSerializer(serializers.ModelSerializer):
+    questions_qty = serializers.SerializerMethodField()
+    events_qty = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ('pk', 'money_qty', 'days_before_payday', 'questions', 'events')
+        fields = ('pk', 'money_qty', 'days_before_payday', 'questions_qty', 'events_qty')
+
+    def get_questions_qty(self, obj):
+        return obj.questions.count()
+
+    def get_events_qty(self, obj):
+        return obj.events.count()
 
 
 class LoginSerializer(RestAuthLoginSerializer):
