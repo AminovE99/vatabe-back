@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import TextField
 
 
 class Answer(models.Model):
@@ -20,6 +19,7 @@ class Question(models.Model):
     warn_about_wrong_decision = models.BooleanField(default=False)
     warning_text = models.CharField(max_length=1024, blank=True, null=True)
     explanation_text = models.CharField(max_length=1024, default=None, blank=True, null=True)
+    order = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Вопрос"
@@ -32,6 +32,7 @@ class Question(models.Model):
 class Event(models.Model):
     text = models.CharField("Текст события", max_length=1024, blank=False)
     money_qty = models.IntegerField()
+    order = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.text}"

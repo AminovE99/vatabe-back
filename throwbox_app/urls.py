@@ -11,6 +11,6 @@ router.register(r'answer', AnswerViewSet, basename='answer')
 router.register(r'question', QuestionViewSet, basename='question')
 router.register(r'event', QuestionViewSet, basename='event')
 
-# external_urls = [path("get-card/", QuestionViewSet.as_view())]
+external_urls = [path("get-card/", QuestionViewSet.as_view())]
 
 urlpatterns = router.urls

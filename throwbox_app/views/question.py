@@ -37,34 +37,33 @@ class QuestionViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
         pk = self.kwargs.get('pk')
         return get_object_or_404(Question, pk=pk)
 
-# class QuestionViewSet(APIView):
-#     """
-#     ViewSet для обновления пациентов
-#     """
-#     serializer_class = QuestionSerializer
-#
-#     @swagger_auto_schema(
-#         manual_parameters=[user_id],
-#     )
-#     def get(self, request):
-#         user_id = request.GET.get('user_id')
-#         user = get_object_or_404(User, pk=user_id)
-#         user.days_before_payday -= 1
-#         if user.days_before_payday == 0:
-#             user.inflation_koeff += 0.1
-#             user.money_qty += 1000
-#             user.days_before_payday = 10
-#         user.save()
-#         if user.days_before_payday == 5:
-#             event = user.events.order_by('?').first()
-#             if not event:
-#                 return Response(status=status.HTTP_204_NO_CONTENT)
-#             return Response(
-#                 {'type': 'event', 'object': EventSerializer(event).data, 'user': RetrieveUserSerializer(user).data})
-#         question = user.questions.order_by('?').first()
-#         if not question:
-#             return Response(status=status.HTTP_204_NO_CONTENT)
-#         user.questions.remove(question)
-#         return Response({'type': 'question', 'object': QuestionSerializer(question).data,
-#                          'user': RetrieveUserSerializer(user).data},
-#                         status=status.HTTP_200_OK)
+
+class CardViewSet(APIView):
+    """
+    APIVIew для карточек
+    """
+
+    @swagger_auto_schema(
+        manual_parameters=[user_id],
+    )
+    def get(self, request):
+        user_id = request.GET.get('user_id')
+        user = get_object_or_404(User, pk=user_id)
+        user.days_before_payday -= 1
+        if user.days_before_payday == 0:
+            user.inflation_koeff += 0.1
+            user.money_qty += 1000
+            user.days_before_payday = 10
+        user.save()
+        question = user.questions.order_by('order').first()
+        event = user.events.order_by('order').first()
+        if question.order < event.order:
+            user.questions.remove(question)
+            return Response({'type': 'question', 'object': QuestionSerializer(question).data,
+                             'user': RetrieveUserSerializer(user).data},
+                            status=status.HTTP_200_OK)
+        else:
+            user.events.remove(event)
+            return Response({'type': 'event', 'object': EventSerializer(event).data,
+                             'user': RetrieveUserSerializer(user).data},
+                            status=status.HTTP_200_OK)

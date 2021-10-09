@@ -11,4 +11,4 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ('text', 'positive_decision_answer', 'negative_decision_answer', 'warn_about_wrong_decision', 'warning_text')
+        fields = ('text', 'positive_decision_answer', 'negative_decision_answer', 'warn_about_wrong_decision', 'warning_text', 'order')
