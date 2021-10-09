@@ -30,7 +30,7 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'throwbox_app.User'
 
 
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 
 REST_FRAMEWORK = {
