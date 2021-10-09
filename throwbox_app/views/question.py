@@ -35,10 +35,12 @@ class QuestionViewSet(APIView):
             event = user.events.order_by('?').first()
             if not event:
                 return Response(status=status.HTTP_204_NO_CONTENT)
-            return Response({'event': EventSerializer(event).data, 'user': RetrieveUserSerializer(user).data})
+            return Response(
+                {'type': 'event', 'object': EventSerializer(event).data, 'user': RetrieveUserSerializer(user).data})
         question = user.questions.order_by('?').first()
         if not question:
             return Response(status=status.HTTP_204_NO_CONTENT)
         user.questions.remove(question)
-        return Response({'question': QuestionSerializer(question).data, 'user': RetrieveUserSerializer(user).data},
+        return Response({'type': 'question', 'object': QuestionSerializer(question).data,
+                         'user': RetrieveUserSerializer(user).data},
                         status=status.HTTP_200_OK)
