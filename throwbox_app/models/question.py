@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import TextField
 
 
 class Answer(models.Model):
@@ -18,6 +19,7 @@ class Question(models.Model):
                                                  on_delete=models.CASCADE, default=None, null=True, blank=True)
     warn_about_wrong_decision = models.BooleanField(default=False)
     warning_text = models.CharField(max_length=1024, blank=True, null=True)
+    explanation_text = models.CharField(max_length=1024, default=None, blank=True, null=True)
 
     class Meta:
         verbose_name = "Вопрос"

@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from throwbox_app.models import User
+from throwbox_app.serializers import RetrieveUserSerializer
 from throwbox_app.serializers.event import EventSerializer
 from throwbox_app.serializers.question import QuestionSerializer
 
@@ -29,14 +30,15 @@ class QuestionViewSet(APIView):
             user.inflation_koeff += 0.1
             user.money_qty += 1000
             user.days_before_payday = 10
-            user.save()
+        user.save()
         if user.days_before_payday == 5:
             event = user.events.order_by('?').first()
             if not event:
                 return Response(status=status.HTTP_204_NO_CONTENT)
-            return Response(EventSerializer(event).data)
+            return Response({'event': EventSerializer(event).data, 'user': RetrieveUserSerializer(user).data})
         question = user.questions.order_by('?').first()
         if not question:
             return Response(status=status.HTTP_204_NO_CONTENT)
         user.questions.remove(question)
-        return Response(QuestionSerializer(question).data, status=status.HTTP_200_OK)
+        return Response({'question': QuestionSerializer(question).data, 'user': RetrieveUserSerializer(user).data},
+                        status=status.HTTP_200_OK)

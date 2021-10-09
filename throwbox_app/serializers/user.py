@@ -15,7 +15,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class CreateResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('pk', 'username', 'role', 'inflation_koeff', 'days_before_payday')
+
+class RetrieveUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'money_qty', 'days_before_payday', 'questions', 'events')
 
 
 class LoginSerializer(RestAuthLoginSerializer):
