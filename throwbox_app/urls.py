@@ -8,6 +8,9 @@ from throwbox_app.views.user import UserViewSet
 router = SimpleRouter()
 router.register(r'user', UserViewSet, basename='user')
 router.register(r'answer', AnswerViewSet, basename='answer')
-external_urls = [path("get-card/", QuestionViewSet.as_view())]
+router.register(r'question', QuestionViewSet, basename='question')
+router.register(r'event', QuestionViewSet, basename='event')
 
-urlpatterns = router.urls + external_urls
+# external_urls = [path("get-card/", QuestionViewSet.as_view())]
+
+urlpatterns = router.urls
