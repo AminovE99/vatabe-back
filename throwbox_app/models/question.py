@@ -5,6 +5,7 @@ class Answer(models.Model):
     text = models.CharField("Текст ответа", max_length=1024, blank=True)
     money_qty = models.IntegerField()
     reply = models.CharField('Текст помощника', max_length=1024, blank=True)
+    link = models.CharField('Ссылка', max_length=64, blank=True, null=True)
 
     def __str__(self):
         return f"{self.text} + {self.reply}"
