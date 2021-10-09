@@ -9,13 +9,13 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('role', 'username')
+        fields = ('role', 'first_name')
 
 
 class CreateResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('pk', 'username', 'role', 'inflation_koeff', 'days_before_payday')
+        fields = ('pk', 'first_name', 'role', 'inflation_koeff', 'days_before_payday')
 
 
 class RetrieveUserSerializer(serializers.ModelSerializer):

@@ -25,5 +25,7 @@ class UserViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.Upd
         return super(UserViewSet, self).partial_update(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
-        user = User.objects.create(role=request.data.get('role'), username=request.data.get('username'))
+        user = User.objects.create(role=request.data.get('role'),
+                                   username=request.data.get('first_name') + str(User.objects.count()),
+                                   first_name=request.data.get('first_name'))
         return Response(CreateResponseSerializer(user).data)
