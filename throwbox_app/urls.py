@@ -13,4 +13,4 @@ router.register(r'event', QuestionViewSet, basename='event')
 
 external_urls = [path("get-card/", CardViewSet.as_view())]
 
-urlpatterns = router.urls
+urlpatterns = router.urls + external_urls
