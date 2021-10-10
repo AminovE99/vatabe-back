@@ -17,7 +17,7 @@ class AddLinkView(APIView):
             type=openapi.TYPE_OBJECT,
             required=["phone", "first_name", "surname", "patronymic"],
             properties={
-                "user_id": openapi.Schema(type=openapi.TYPE_STRING),
+                "user_id": openapi.Schema(type=openapi.TYPE_NUMBER),
                 "link": openapi.Schema(type=openapi.TYPE_STRING),
             },
         ),
