@@ -52,8 +52,8 @@ class CardViewSet(APIView):
         user.days_before_payday -= 1
         if user.days_before_payday == 0:
             user.inflation_koeff += 0.1
-            user.money_qty += 1000
-            user.days_before_payday = 10
+            user.money_qty += 50
+            user.days_before_payday = 4
         user.save()
         question = user.questions.order_by('order').first()
         event = user.events.order_by('order').first()
