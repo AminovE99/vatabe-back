@@ -27,6 +27,7 @@ class User(AbstractUser):
     money_qty = models.IntegerField(default=1000)
     days_before_payday = models.IntegerField(default=10)
     inflation_koeff = models.FloatField(default=1)
+    links = models.TextField(max_length=1000, default=None, blank=True, null=True)
 
 
 @receiver(models.signals.post_save, sender=User)
