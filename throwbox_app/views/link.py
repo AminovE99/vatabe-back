@@ -25,5 +25,8 @@ class AddLinkView(APIView):
         user_id = request.data.get('user_id')
         link = request.data.get('link')
         user = get_object_or_404(User, pk=user_id)
-        user.links += f"{link},"
+        if not user.links:
+            user.links = f"{link},"
+        else:
+            user.links += f"{link},"
         user.save()
